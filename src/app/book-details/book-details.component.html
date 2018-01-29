@@ -1,0 +1,43 @@
+<div class="ui grid" *ngIf="book">
+  <div class="four wide column">
+    <img class="ui large image" *ngIf="book.thumbnails" [src]="book?.thumbnails[0].url">
+  </div>
+</div>
+<div class="twelve wide column">
+  <h1 class="ui header">{{ book.title }}</h1>
+  <h3 class="ui header">{{ book.subtitle }}</h3>
+  <div class="ui divider"></div>
+  <div class="ui grid">
+    <div class="four wide column">
+      <h4 class="ui header">Autoren</h4>
+      <span *ngFor="let author of book.authors; last as isLastAuthor">
+        {{ author }}
+        <span *ngIf="!isLastAuthor">, </span>
+      </span>
+    </div>
+    <div class="four wide column">
+      <h4 class="ui header">ISBN</h4>
+      {{ book.isbn }}
+    </div>
+    <div class="four wide column">
+      <h4 class="ui header">Erschienen</h4>
+      {{ book.published }}
+    </div>
+    <div class="four wide column">
+      <h4 class="ui header">Bewertung</h4>
+      <i *ngFor="let rating of getRating(book.rating)" class="yellow star icon"></i>>
+    </div>
+    <div class="sixteen wide column">
+      <h3 class="ui header">Beschreibung</h3>
+      {{ book.description }}
+    </div>
+  </div>
+  <div class="sixteen wide column">
+    <div class="ui small images">
+      <img *ngFor="let thumbnail of book.thumbnails" [src]="thumbnail?.url">
+    </div>
+  </div>
+  <div>
+    <button (click)="showList()">zur&uuml;ck zur &Uuml;bersicht</button>
+  </div>
+</div>
