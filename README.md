@@ -1,4 +1,4 @@
-# BookMonkey2
+# BookMonkey2 - mit Detailansicht
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
 
