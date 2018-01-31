@@ -2,6 +2,9 @@
   <div class="four wide column">
     <img class="ui large image" *ngIf="book.thumbnails" [src]="book?.thumbnails[0].url">
   </div>
+  <div class="one wide column">
+    <a [routerLink]="['']">zur&uuml;ck</a>
+  </div>
 </div>
 <div class="twelve wide column">
   <h1 class="ui header">{{ book.title }}</h1>
@@ -36,8 +39,5 @@
     <div class="ui small images">
       <img *ngFor="let thumbnail of book.thumbnails" [src]="thumbnail?.url">
     </div>
-  </div>
-  <div>
-    <button (click)="showList()">zur&uuml;ck zur &Uuml;bersicht</button>
   </div>
 </div>
