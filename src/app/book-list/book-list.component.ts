@@ -1,6 +1,6 @@
 import { Thumbnail } from './../shared/thumbnail';
 import { Book } from './../shared/book';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BookStoreService } from '../shared/book-store.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +14,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = new Array<Subscription>();
 
   books: Array<Book>;
-  @Output() showDetailsEvent = new EventEmitter<Book>();
 
   constructor(private bookStoreService: BookStoreService) { }
 
@@ -33,12 +32,5 @@ export class BookListComponent implements OnInit, OnDestroy {
       value.unsubscribe();
     });
     this.subscriptions = null;
-  }
-
-  showDetails(book: Book) {
-    if (!book) {
-      return;
-    }
-    this.showDetailsEvent.emit(book);
   }
 }

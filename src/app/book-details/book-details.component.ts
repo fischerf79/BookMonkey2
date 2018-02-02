@@ -1,5 +1,7 @@
-import { Book } from './../../../BookMonkey2/src/app/shared/book';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Book } from '../shared/book';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { BookStoreService } from '../shared/book-store.service';
 
 @Component({
   selector: 'bm-book-details',
@@ -8,19 +10,22 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class BookDetailsComponent implements OnInit {
 
-  @Input() book: Book;
-  @Output() showListEvent: EventEmitter<Book> = new EventEmitter();
+  book: Book;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private bookStoreService: BookStoreService
+  ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe((value: ParamMap) => {
+      if (value.has('isbn')) {
+        this.book = this.bookStoreService.getBook(value.get('isbn'));
+      }
+    });
   }
 
   getRating(num: Number): Array<Number> {
     return new Array<Number>(num);
-  }
-
-  showList() {
-    this.showListEvent.emit();
   }
 }

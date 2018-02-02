@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Book } from './book';
 import { Thumbnail } from './thumbnail';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class BookStoreService {
@@ -34,5 +35,10 @@ export class BookStoreService {
 
   getAllBooks(): Observable<Array<Book>> {
     return this.books;
+  }
+
+  getBook(isbn: string): Book {
+    const filteredBooks: Book[] = this.booksValue.filter(x => x.isbn === isbn);
+    return filteredBooks[0];
   }
 }
