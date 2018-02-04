@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Book } from '../shared/book';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
@@ -8,8 +9,9 @@ import { BookStoreService } from '../shared/book-store.service';
   templateUrl: './book-details.component.html',
   styles: []
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, OnDestroy {
 
+  private subscriptions: Array<Subscription> = new Array<Subscription>();
   book: Book;
 
   constructor(
@@ -18,11 +20,22 @@ export class BookDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((value: ParamMap) => {
+    const paramMapSubs: Subscription = this.route.paramMap.subscribe((value: ParamMap) => {
       if (value.has('isbn')) {
-        this.book = this.bookStoreService.getBook(value.get('isbn'));
+        const subscript: Subscription = this.bookStoreService.getBook(value.get('isbn')).subscribe((bookValue: Book) => {
+          this.book = bookValue;
+        });
+        this.subscriptions.push(subscript);
       }
     });
+    this.subscriptions.push(paramMapSubs);
+  }
+
+  ngOnDestroy() {
+    // unsubscriben der Observer
+    if (this.subscriptions) {
+      this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
   }
 
   getRating(num: Number): Array<Number> {

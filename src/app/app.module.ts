@@ -9,6 +9,8 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookStoreService } from './shared/book-store.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
