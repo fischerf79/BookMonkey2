@@ -11,14 +11,14 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class BookStoreService {
 
-  private api = 'https://book-monkey2-api.angular-buch.com';
+  private api = 'api';
   private headers = new Headers();
 
   constructor(private http: HttpClient) {
     this.headers.append('Content-Type', 'application/json');
   }
 
-  getAllBooks(): Observable<Array<Book>> {
+  getAllBooks(): Observable<Book[]> {
     return this.http
       .get<Book[]>(`${this.api}/books`)
       .pipe(
@@ -29,8 +29,14 @@ export class BookStoreService {
 
   getBook(isbn: string): Observable<Book> {
     return this.http
-      .get<Book>(`${this.api}/book/${isbn}`).pipe(
+      .get<Book[]>(`${this.api}/books/?isbn=${isbn}`).pipe(
         retry(3),
+        map((filteredBooks: Book[], index: number) => {
+          if (filteredBooks && filteredBooks.length > 0) {
+            return filteredBooks[0];
+          }
+          return null;
+        }),
         catchError(this.handleError<Book>(`getBook id=${isbn}`))
       );
   }
