@@ -12,7 +12,7 @@ export class InMemoryBookStoreService implements InMemoryDbService {
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
     const books: Book[] = [
       {
-        // id: 1,
+        id: 1,
         isbn: '1234567890',
         title: 'Erster Titel - Test1',
         authors: [
@@ -28,7 +28,7 @@ export class InMemoryBookStoreService implements InMemoryDbService {
         description: 'TestBeschreibung'
       },
       {
-        // id: 2,
+        id: 2,
         isbn: '2222222222',
         title: 'Erster Titel - Test2',
         authors: [
@@ -44,7 +44,7 @@ export class InMemoryBookStoreService implements InMemoryDbService {
         description: 'TestBeschreibung2'
       },
       {
-        // id: 3,
+        id: 3,
         isbn: '333333333',
         title: 'Erster Titel - Test3',
         authors: [
@@ -62,6 +62,7 @@ export class InMemoryBookStoreService implements InMemoryDbService {
     ];
 
     if (reqInfo) {
+      // tslint:disable-next-line:no-console
       console.info(reqInfo);
     }
     return { books };

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Book } from './book';
 import { Thumbnail } from './thumbnail';
 import { Subject } from 'rxjs/Subject';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, retry } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
@@ -12,10 +12,11 @@ import { of } from 'rxjs/observable/of';
 export class BookStoreService {
 
   private api = 'api';
-  private headers = new Headers();
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) {
-    this.headers.append('Content-Type', 'application/json');
   }
 
   getAllBooks(): Observable<Book[]> {
@@ -38,6 +39,30 @@ export class BookStoreService {
           return null;
         }),
         catchError(this.handleError<Book>(`getBook id=${isbn}`))
+      );
+  }
+
+  create(book: Book): Observable<Book> {
+    return this.http
+      .post<Book>(`${this.api}/books`, JSON.stringify(book), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Book>(`create new book`))
+      );
+  }
+
+  update(book: Book): Observable<Book> {
+    return this.http
+      .put<Book>(`${this.api}/book`, JSON.stringify(book), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Book>(`update book with id=${book.id}`))
+      );
+  }
+
+  remove(book: Book): Observable<Book> {
+    return this.http
+      .delete<Book>(`${this.api}/book/${book.id}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Book>(`delete book with id=${book.id}`))
       );
   }
 
