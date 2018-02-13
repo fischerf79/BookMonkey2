@@ -1,0 +1,17 @@
+<div class="ui segment">
+  <div class="ui active inverted dimmer" *ngIf="isLoading">
+    <div class="ui text loader">Loading</div>
+  </div>
+  <div class="ui icon input">
+    <input type="text" placeholder="Suchen..." (keyup)="search(searchTerm.value)" #searchTerm>
+    <i class="search icon"></i>
+  </div>
+  <div *ngIf="foundBooks?.length > 0" class="ui link list">
+    <a *ngFor="let foundBook of foundBooks" (click)="bookSelected.emit(foundBook)" class="item">
+      <i class="step forward icon"></i>
+      <div class="content">
+        <div class="title">{{ foundBook.title }}</div>
+      </div>
+    </a>
+  </div>
+</div>

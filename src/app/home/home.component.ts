@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from '../shared/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bm-home',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private routerService: Router) { }
 
   ngOnInit() {
   }
 
+  onBookSelected(selectedBook: Book): void {
+    if (selectedBook) {
+      this.navigateToSelectedBook(selectedBook);
+    }
+  }
+
+  private navigateToSelectedBook(selectedBook: Book) {
+    this.routerService.navigate(['/books', selectedBook.isbn]);
+  }
 }
