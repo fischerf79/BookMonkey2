@@ -9,7 +9,7 @@ import { BookStoreService } from './shared/book-store.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { BookSearchComponent } from './book-search/book-search.component';
 
 
 
@@ -19,20 +19,16 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     BookListComponent,
     BookListItemComponent,
     BookDetailsComponent,
-    HomeComponent
+    HomeComponent,
+    BookSearchComponent
   ],
   imports: [
     HttpClientModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryBookStoreService, { dataEncapsulation: false }),
     BrowserModule,
     AppRoutingModule
   ],
   providers: [
-    BookStoreService,
-    InMemoryBookStoreService
+    BookStoreService
   ],
   bootstrap: [AppComponent]
 })

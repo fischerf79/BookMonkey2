@@ -42,4 +42,11 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   getRating(num: Number): Array<Number> {
     return new Array<Number>(num);
   }
+
+  removeBook(): void {
+    if (this.book && confirm(`Wollen Sie das Buch ${this.book.title} löschen?`)) {
+      this.bookStoreService.remove(this.book).subscribe(() => {
+      });
+    }
+  }
 }

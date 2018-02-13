@@ -11,7 +11,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class BookStoreService {
 
-  private api = 'api';
+  private api = 'https://book-monkey2-api.angular-buch.com';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -30,7 +30,7 @@ export class BookStoreService {
 
   getBook(isbn: string): Observable<Book> {
     return this.http
-      .get<Book[]>(`${this.api}/books/?isbn=${isbn}`).pipe(
+      .get<Book[]>(`${this.api}/books?isbn=${isbn}`, this.httpOptions).pipe(
         retry(3),
         map((filteredBooks: Book[], index: number) => {
           if (filteredBooks && filteredBooks.length > 0) {
@@ -39,6 +39,19 @@ export class BookStoreService {
           return null;
         }),
         catchError(this.handleError<Book>(`getBook id=${isbn}`))
+      );
+  }
+
+  /**
+   * Gibt für einen Suchbegriff die gefundenen Bücher zurück.
+   * @param searchTerm Suchbegriff als QueryParameter
+   */
+  searchBook(searchTerm: string): Observable<Array<Book>> {
+    return this.http
+      .get<Array<Book>>(`${this.api}/books/search/${searchTerm}`, this.httpOptions)
+      .pipe(
+        retry(3),
+        catchError(this.handleError<Array<Book>>(`search books by searchTerm=${searchTerm}`))
       );
   }
 
