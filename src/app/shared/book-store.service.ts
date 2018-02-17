@@ -57,7 +57,7 @@ export class BookStoreService {
 
   create(book: Book): Observable<Book> {
     return this.http
-      .post<Book>(`${this.api}/books`, JSON.stringify(book), this.httpOptions)
+      .post<Book>(`${this.api}/book`, JSON.stringify(book), this.httpOptions)
       .pipe(
         catchError(this.handleError<Book>(`create new book`))
       );
