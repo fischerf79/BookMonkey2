@@ -1,0 +1,43 @@
+<h1>Buchformular</h1>
+<form #newBookForm="ngForm" (ngSubmit)="save()" class="ui large form" novalidate>
+  <div class="field">
+    <label>Titel</label>
+    <input type="text" [(ngModel)]="newBook.title" name="title" required>
+    <div *ngIf="errors.title" class="ui negative message">{{ errors.title }}</div>
+  </div>
+  <div class="field">
+    <label>Untertitel</label>
+    <input type="text" [(ngModel)]="newBook.subtitle" name="subtitle">
+  </div>
+  <div class="field">
+    <label>ISBN</label>
+    <input type="text" [(ngModel)]="newBook.isbn" name="isbn" required maxlength="13" minlength="10">
+    <div *ngIf="errors.isbn" class="ui negative message">{{ errors.isbn }}</div>
+  </div>
+  <div class="field">
+    <label>Erscheinungsdatum</label>
+    <input type="date" [(ngModel)]="newBook.published" name="published" useValueAsDate required>
+    <div *ngIf="errors.published" class="ui negative message">{{ errors.published }}</div>
+  </div>
+  <div class="field">
+    <label>Author</label>
+    <input type="text" [(ngModel)]="newBook.authors[0]" name="authors" required>
+    <div *ngIf="errors.authors" class="ui negative message">{{ errors.authors }}</div>
+  </div>
+  <div class="field">
+    <label>Beschreibung</label>
+    <textarea type="text" [(ngModel)]="newBook.description" name="description" rows="3"></textarea>
+  </div>
+  <div class="field">
+    <label>Bild</label>
+    <div class="two fields" ngModelGroup="thumbnail">
+      <div class="field">
+        <input type="text" [(ngModel)]="newBook.thumbnails[0].url" name="url" placeholder="http://example.org/img.jpg">
+      </div>
+      <div class="field">
+        <input type="text" [(ngModel)]="newBook.thumbnails[0].title" name="title" placeholder="Titel">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="ui button" [disabled]="newBookForm.invalid">Speichern</button>
+</form>
