@@ -2,6 +2,11 @@
   <div class="four wide column">
     <img class="ui large image" *ngIf="book?.thumbnails" [src]="book?.thumbnails[0].url">
   </div>
+  <div class="five wide column">
+    <a class="ui tiny yellow labeled icon button" routerLink="/newBook/{{book?.isbn}}">
+      <i class="write icon"></i>Buch bearbeiten
+    </a>
+  </div>
   <div class="one wide column">
     <a routerLink="/books">zur&uuml;ck</a>
   </div>

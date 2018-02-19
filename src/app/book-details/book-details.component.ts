@@ -22,7 +22,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const paramMapSubs: Subscription = this.route.paramMap.subscribe((value: ParamMap) => {
       if (value.has('isbn')) {
-        const subscript: Subscription = this.bookStoreService.getBook(value.get('isbn'))
+        const isbn = value.get('isbn');
+        const subscript: Subscription = this.bookStoreService.getBook(isbn)
         .subscribe((bookValue: Book) => {
           this.book = bookValue;
         });
