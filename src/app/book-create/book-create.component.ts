@@ -7,6 +7,7 @@ import { NgForm, FormBuilder, FormGroup, FormArray, FormControl, Validators } fr
 import { Observable } from 'rxjs/Observable';
 import { BookFactory } from '../shared/book-factory';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { BookValidators } from '../shared/book.validators';
 
 @Component({
   selector: 'bm-book-create',
@@ -99,9 +100,10 @@ export class BookCreateComponent implements OnInit {
     title: [this.book.title, Validators.required],
     subtitle: this.book.subtitle,
     isbn: [this.book.isbn, [
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(13)]],
+        Validators.required,
+        BookValidators.isbnFormat
+      ]
+    ],
     published: this.book.published,
     description: this.book.description,
     authors: this.authors,
