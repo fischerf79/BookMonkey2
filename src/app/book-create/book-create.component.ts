@@ -133,7 +133,8 @@ export class BookCreateComponent implements OnInit {
     const authorsFormControls = this.book.authors.map((value: string) => {
       return this.formBuilder.control(value);
     });
-    this.authors = this.formBuilder.array(authorsFormControls, Validators.required);
+    this.authors = this.formBuilder.array(authorsFormControls,
+      Validators.compose([Validators.required, BookValidators.atLeastOneAuthor]));
   }
 
   private buildThumbnailsArray(): void {

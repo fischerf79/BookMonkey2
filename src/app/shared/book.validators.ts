@@ -1,7 +1,7 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, FormArray } from '@angular/forms';
 
 export class BookValidators {
-  static isbnFormat(fc: FormControl): { [error: string]: any } {
+  static isbnFormat(fc: FormControl): { [error: string]: any } | null {
     if (!fc || !fc.value) {
       return null;
     }
@@ -15,7 +15,23 @@ export class BookValidators {
     }
   }
 
-  static atLeastOneAuthor() {}
+  static atLeastOneAuthor(controlArray: FormArray): { [error: string]: any } | null {
+    if (!controlArray) {
+      return null;
+    }
+    // search for empty author
+    if (controlArray.controls.some((fc: FormControl, index: number, array: FormControl[]) => {
+      if (fc.value) {
+        return true;
+      }
+      return false;
+    })) {
+      return { 'atLeastOneAuthor': { valid: false }};
+    }
+    return null;
+  }
 
-  static isbnExists() {}
+  static isbnExists(fc: FormControl): { [error: string]: any } | null {
+    return null;
+  }
 }
