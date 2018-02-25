@@ -15,6 +15,7 @@ import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
+import { IsbnPipe } from './shared/isbn.pipe';
 registerLocaleData(localeDE);
 
 @NgModule({
@@ -25,7 +26,8 @@ registerLocaleData(localeDE);
     BookDetailsComponent,
     HomeComponent,
     BookSearchComponent,
-    BookCreateComponent
+    BookCreateComponent,
+    IsbnPipe
   ],
   imports: [
     HttpClientModule,
