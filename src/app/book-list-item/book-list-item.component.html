@@ -7,5 +7,5 @@
         {{ author }}<span *ngIf="!isLastAuthor">, </span>
       </span>
     </div>
-    <div class="extra">ISBN {{ book.isbn }}</div>
+    <div class="extra">ISBN {{ book.isbn | isbn:true }}</div>
 </div>
