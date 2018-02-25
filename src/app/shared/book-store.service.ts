@@ -89,6 +89,15 @@ export class BookStoreService {
       );
   }
 
+  check(isbn: string): Observable<boolean> {
+    const url = encodeURI(`${this.api}/book/${isbn}/check`);
+    return this.http.
+      get<boolean>(url, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<boolean>(`check unique isbn=${isbn}`))
+      );
+  }
+
     /**
    * Handle Http operation that failed.
    * Let the app continue.

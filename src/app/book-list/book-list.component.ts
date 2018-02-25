@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookStoreService } from '../shared/book-store.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'bm-book-list',
@@ -13,18 +14,20 @@ import { Subscription } from 'rxjs/Subscription';
 export class BookListComponent implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = new Array<Subscription>();
 
-  books: Array<Book>;
+  // books: Array<Book>;
+  books$: Observable<Array<Book>>;
 
   constructor(private bookStoreService: BookStoreService) { }
 
   ngOnInit() {
-    const getAllBooksSubscription: Subscription =
-      this.bookStoreService.getAllBooks().subscribe((value: Array<Book>) => {
-        if (value) {
-          this.books = value;
-        }
-      });
-      this.subscriptions.push(getAllBooksSubscription);
+    // const getAllBooksSubscription: Subscription =
+    //   this.bookStoreService.getAllBooks().subscribe((value: Array<Book>) => {
+    //     if (value) {
+    //       this.books = value;
+    //     }
+    //   });
+    //   this.subscriptions.push(getAllBooksSubscription);
+    this.books$ = this.bookStoreService.getAllBooks();
   }
 
   ngOnDestroy(): void {
