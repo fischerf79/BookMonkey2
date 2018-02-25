@@ -1,4 +1,7 @@
-import { FormControl, FormArray } from '@angular/forms';
+import { FormControl, FormArray, ValidatorFn, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { BookStoreService } from './book-store.service';
+import { map } from 'rxjs/operators';
 
 export class BookValidators {
   static isbnFormat(fc: FormControl): { [error: string]: any } | null {
@@ -15,7 +18,7 @@ export class BookValidators {
     }
   }
 
-  static atLeastOneAuthor(controlArray: FormArray): { [error: string]: any } | null {
+  static atLeastOneAuthor(controlArray: FormArray): ValidationErrors | null {
     if (!controlArray) {
       return null;
     }
@@ -31,7 +34,21 @@ export class BookValidators {
     return null;
   }
 
-  static isbnExists(fc: FormControl): { [error: string]: any } | null {
-    return null;
+  static isbnExistsAsync(bookStoreService: BookStoreService): AsyncValidatorFn {
+    return (fc: FormControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      const isbn: string = fc.value;
+      if (!isbn) {
+        return Observable.create(() => null);
+      }
+      return bookStoreService.check(isbn).pipe(
+        map(exists => {
+          if (exists) {
+            return { 'isbnExists': { valid: false }};
+          } else {
+            return null;
+          }
+        })
+      );
+    };
   }
 }

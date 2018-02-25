@@ -5,5 +5,6 @@ export const BookFormErrorMessages = [
   new ErrorMessage('isbn', 'isbnFormat', 'Die ISBN muss aus 10 oder 13 Ziffern bestehen'),
   new ErrorMessage('published', 'required', 'Es muss ein Erscheinungsdatum angegeben werden'),
   new ErrorMessage('authors', 'required', 'Es muss ein Autor angegeben werden'),
-  new ErrorMessage('authors', 'atLeastOneAuthor', 'Es müssen alle Autoren angegeben werden')
+  new ErrorMessage('authors', 'atLeastOneAuthor', 'Es müssen alle Autoren angegeben werden'),
+  new ErrorMessage('isbn', 'isbnExists', 'Die angegebene ISBN existiert bereits')
 ];

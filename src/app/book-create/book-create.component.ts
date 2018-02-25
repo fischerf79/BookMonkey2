@@ -99,9 +99,13 @@ export class BookCreateComponent implements OnInit {
   this.bookForm = this.formBuilder.group({
     title: [this.book.title, Validators.required],
     subtitle: this.book.subtitle,
-    isbn: [this.book.isbn, [
+    isbn: [this.book.isbn,
+      [
         Validators.required,
         BookValidators.isbnFormat
+      ],
+      [
+        this.isUpdatingBook ? null : BookValidators.isbnExistsAsync(this.bookStoreService)
       ]
     ],
     published: this.book.published,

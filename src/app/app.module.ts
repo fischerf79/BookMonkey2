@@ -1,6 +1,6 @@
 import { InMemoryBookStoreService } from './shared/in-memory-book-store.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookListItemComponent } from './book-list-item/book-list-item.component';
@@ -13,8 +13,9 @@ import { BookSearchComponent } from './book-search/book-search.component';
 import { BookCreateComponent } from './book-create/book-create.component';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { registerLocaleData } from '@angular/common';
+import localeDE from '@angular/common/locales/de';
+registerLocaleData(localeDE);
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DateValueAccessorModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'de' },
     BookStoreService
   ],
   bootstrap: [AppComponent]

@@ -1,3 +1,12 @@
-<div class="ui middle aligned selection devided list">
-  <a class="bm-book-list-item item" *ngFor="let b of books" [book]="b" routerLink="/books/{{b.isbn}}"></a>
+<div class="ui middle aligned selection devided list"
+  *ngIf="books$ | async as books; else isLoading">
+  <a class="bm-book-list-item item"
+    *ngFor="let b of books"
+    [book]="b"
+    [routerLink]="['/books', b.isbn]"></a>
 </div>
+<ng-template #isLoading>
+  <div class="ui active inverted dimmer">
+    <div class="ui text loader">Lade Bücher...</div>
+  </div>
+</ng-template>
