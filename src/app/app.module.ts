@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { IsbnPipe } from './shared/isbn.pipe';
+import { ZoomDirective } from './shared/zoom.directive';
 registerLocaleData(localeDE);
 
 @NgModule({
@@ -27,7 +28,8 @@ registerLocaleData(localeDE);
     HomeComponent,
     BookSearchComponent,
     BookCreateComponent,
-    IsbnPipe
+    IsbnPipe,
+    ZoomDirective
   ],
   imports: [
     HttpClientModule,
